@@ -229,7 +229,7 @@ const Dashboard = ({navigation, route}) => {
                       fontSize: 16,
                       marginVertical: 5,
                     }}>
-                    Add Vehicles
+                    Add Vehicle
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -260,7 +260,7 @@ const Dashboard = ({navigation, route}) => {
                       fontSize: 16,
                       marginVertical: 5,
                     }}>
-                    Show Vehicle
+                    My Vehicle
                   </Text>
                 </View>
               </TouchableOpacity>

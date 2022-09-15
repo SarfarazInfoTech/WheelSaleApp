@@ -1,4 +1,4 @@
-const MarketVehical = 'http://192.168.1.18:8080/wheelsale-app-ws/sub-categories';
+const MarketVehical = 'http://192.168.1.18:8080/wheelsale-app-ws/sub-categories?page=1&limit=100';
 
 export {MarketVehical};
 
@@ -6,7 +6,7 @@ const ShownMyVehical = 'http://192.168.1.18:8080/wheelsale-app-ws/sub-categories
 
 export {ShownMyVehical};
 
-const SoldMyVehical = 'http://192.168.1.18:8080/wheelsale-app-ws/sub-categories?page=1&limit=1&dealerId=9czJMjMfRNHaB04G07moLqkGV5reTc&visibility=false'
+const SoldMyVehical = 'http://192.168.1.18:8080/wheelsale-app-ws/sub-categories?page=1&limit=100&dealerId=9czJMjMfRNHaB04G07moLqkGV5reTc&visibility=false'
 
 export {SoldMyVehical};
 

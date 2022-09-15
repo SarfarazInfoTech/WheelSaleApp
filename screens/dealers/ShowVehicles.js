@@ -8,7 +8,11 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {ShownMyVehical, MarketVehical, SoldMyVehical} from '../services/UrlApi.js';
+import {
+  ShownMyVehical,
+  MarketVehical,
+  SoldMyVehical,
+} from '../services/UrlApi.js';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {DefImg} from '../data/data.json';
 
