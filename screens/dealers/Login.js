@@ -20,7 +20,7 @@ const Login = ({navigation}) => {
   const handleLogin = async () => {
     if (!phone && !password) {
       alert('Username & Password are requred!');
-      // console.log(`${Api.api}login`);
+      console.log(`${Api.api}login`);
     } else {
       await fetch(`${Api.api}login`, {
         method: 'POST',

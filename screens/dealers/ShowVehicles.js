@@ -8,12 +8,12 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {ShownMyVehical} from '../services/UrlApi.js';
+import {ShownMyVehical, MarketVehical, SoldMyVehical} from '../services/UrlApi.js';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {DefImg} from '../data/data.json';
 
-const ShowVehicles = () => {
-  const [loading, setLoading] = useState(false);
+const ShowVehicles = ({navigation}) => {
+  const [loading, setLoading] = useState(true);
   const [Data, setData] = useState([]);
   const [message, setMessage] = useState('');
   const [Error, setError] = useState('');
@@ -44,7 +44,9 @@ const ShowVehicles = () => {
           }
         });
     } catch (err) {
+      alert(err);
       console.log(err);
+      navigation.navigate('Tabs');
     } finally {
       setLoading(false);
     }
@@ -74,28 +76,38 @@ const ShowVehicles = () => {
         </View>
       ) : (
         <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}}>
-          <Text>{message}</Text>
-          <Text>{Error}</Text>
+          {/* <Text>{message}</Text> */}
+          {/* <Text>{Error}</Text> */}
           <View style={styles.container}>
             {Object.keys(Data).map(keys => {
               return (
                 <TouchableOpacity key={Data[keys].subCategoryId}>
                   <View style={styles.cardItem}>
                     <View style={styles.card}>
-                      {Data[keys].images.map(({image, imageId}) => {
-                        console.log(image);
+                      <Image
+                        source={{
+                          uri:
+                            Data[keys].images[0].image === null
+                              ? DefImg
+                              : Data[keys].images[0].image,
+                        }}
+                        style={styles.cardImg}
+                      />
+                      {/* {Data[keys].images.map((image, imageId) => {
+                        // console.log(image.image);
                         //  console.log(Object.keys(Data[keys].images[0].image));
-                        //  console.log(Object.keys(image));
+                        //  console.log(Data[keys].images[0].image);
                         return (
                           <Image
                             key={imageId}
                             source={{
-                              uri: image === null ? DefImg : image
+                              uri: Data[keys].images[0].image === null ? DefImg : Data[keys].images[0].image,
                             }}
                             style={styles.cardImg}
                           />
                         );
-                      })}
+                      })} */}
+
                       <Image
                         source={{
                           uri: 'http://wheelsale.in/wheel/Asset1/images/favicon.png',

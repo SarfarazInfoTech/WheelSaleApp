@@ -5,79 +5,134 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {MarketVehical} from '../services/UrlApi.js';
+import {DefImg} from '../data/data.json';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const MarketVehicles = () => {
-  const vehicle = [
-    {
-      id: '1',
-      img: 'https://cdn.motor1.com/images/mgl/mrBRA/s3/tvs-jupiter-110.jpg',
-    },
-    {
-      id: '2',
-      img: 'https://cdn.motor1.com/images/mgl/mrBRA/s3/tvs-jupiter-110.jpg',
-    },
-    {
-      id: '3',
-      img: 'https://cdn.motor1.com/images/mgl/mrBRA/s3/tvs-jupiter-110.jpg',
-    },
-    {
-      id: '4',
-      img: 'https://cdn.motor1.com/images/mgl/mrBRA/s3/tvs-jupiter-110.jpg',
-    },
-    {
-      id: '5',
-      img: 'https://cdn.motor1.com/images/mgl/mrBRA/s3/tvs-jupiter-110.jpg',
-    },
-    {
-      id: '6',
-      img: 'https://cdn.motor1.com/images/mgl/mrBRA/s3/tvs-jupiter-110.jpg',
-    },
-  ];
-  return (
-    <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}}>
-      <View style={{padding: 10, backgroundColor: 'white'}}>
-        <Text style={{color: 'black', fontWeight: '500'}}>
-          Fresh recommendations
-        </Text>
-      </View>
-      <View style={styles.container}>
-        {vehicle.map(({id, img}) => (
-          <TouchableOpacity key={id}>
-            <View style={styles.cardItem}>
-              <View style={styles.card}>
-                <Image
-                  source={{
-                    uri: img,
-                  }}
-                  style={styles.cardImg}
-                />
-                <Image
-                  source={{
-                    uri: 'http://wheelsale.in/wheel/Asset1/images/favicon.png',
-                  }}
-                  style={styles.iconLogo}
-                />
-                <View style={{margin: 5}}>
-                  <Text style={styles.vehName} numberOfLines={2}>Yaamah Royal Enfield Classic 350 - 2020</Text>
-                  <Text style={styles.vehPrice}>
-                    <FontAwesome name="rupee" size={16} color="#3d3d72" />
-                    {''} 60,000/-
-                  </Text>
+const MarketVehicles = ({navigation}) => {
+  const [loading, setLoading] = useState(true);
+  const [Data, setData] = useState([]);
+  const [message, setMessage] = useState('');
+  const [Error, setError] = useState('');
 
-                  <Text style={styles.shopName} numberOfLines={1}>
-                    <FontAwesome name="map-marker" size={16} color="black" />{' '}
-                    Taj Auto Delars Sadar
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </View>
-    </ScrollView>
+  const myVehical = async () => {
+    try {
+      await fetch(`${MarketVehical}`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-type': 'application/json',
+        },
+        // body: JSON.stringify({
+        //   page: '1',
+        //   limit: '10',
+        // }),
+      })
+        .then(res => res.json())
+        .then(resData => {
+          if (resData.status === 'S') {
+            // alert(resData.message);
+            setMessage(resData.message);
+            setData(resData.subCategories);
+          } else {
+            alert(resData.message);
+            setMessage(resData.message);
+            setError(resData.status);
+          }
+        });
+    } catch (err) {
+      alert(err);
+      console.log(err);
+      navigation.navigate('Tabs');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    myVehical();
+  }, []);
+
+  
+  return (
+    <>
+      {loading ? (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignSelf: 'center',
+            marginTop: 30,
+          }}>
+          <ActivityIndicator
+            size="large"
+            color="#00b8dc"
+            visible={loading}
+            textContent={'Loading...'}
+            textStyle={styles.spinnerTextStyle}
+          />
+        </View>
+      ) : (
+        <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}}>
+          {/* <Text>{message}</Text> */}
+          {/* <Text>{Error}</Text> */}
+          <View style={{padding: 10, backgroundColor: 'white'}}>
+            <Text style={{color: 'black', fontWeight: '500'}}>
+              Fresh recommendations
+            </Text>
+          </View>
+          <View style={styles.container}>
+            {Object.keys(Data).map(keys => {
+              return (
+                <TouchableOpacity key={Data[keys].subCategoryId}>
+                  <View style={styles.cardItem}>
+                    <View style={styles.card}>
+                      <Image
+                        source={{
+                          uri:
+                            Data[keys].images[0].image === null
+                              ? DefImg
+                              : Data[keys].images[0].image,
+                        }}
+                        style={styles.cardImg}
+                      />
+                      <Image
+                        source={{
+                          uri: 'http://wheelsale.in/wheel/Asset1/images/favicon.png',
+                        }}
+                        style={styles.iconLogo}
+                      />
+                      <View style={{margin: 5}}>
+                        <Text style={styles.vehName} numberOfLines={2}>
+                          {Data[keys].company} {Data[keys].categoryName} -{' '}
+                          {Data[keys].modelYear} ({Data[keys].subCategoryName})
+                        </Text>
+                        <Text style={styles.vehPrice}>
+                          <FontAwesome name="rupee" size={16} color="#3d3d72" />
+                          {''} {Data[keys].sellingPrice}/-
+                        </Text>
+
+                        <Text style={styles.shopName} numberOfLines={1}>
+                          <FontAwesome
+                            name="map-marker"
+                            size={16}
+                            color="black"
+                          />{' '}
+                          Taj Auto Delars Sadar
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </ScrollView>
+      )}
+    </>
   );
 };
 
@@ -120,6 +175,7 @@ const styles = StyleSheet.create({
   },
   shopName: {},
   vehName: {
+    textTransform: 'uppercase',
     color: 'black',
     fontSize: 15,
   },
