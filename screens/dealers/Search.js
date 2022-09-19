@@ -19,7 +19,7 @@ const Search = () => {
   const [MasterData, setMasterData] = useState([]);
 
   const fetchPosts = async () => {
-    const apiURL = 'http://192.168.1.18:8080/wheelsale-app-ws/sub-categories';
+    const apiURL = 'http://192.168.1.34:8080/wheelsale-app-ws/sub-categories?page=1&limit=100';
     // console.log(apiURL);
     await fetch(apiURL, {
       method: 'GET',
