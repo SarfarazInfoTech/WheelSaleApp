@@ -9,17 +9,20 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {DefImg} from '../data/data.json';
 
 const Search = () => {
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [FilterData, setFilterData] = useState([]);
   const [MasterData, setMasterData] = useState([]);
 
   const fetchPosts = async () => {
-    const apiURL = 'http://192.168.1.34:8080/wheelsale-app-ws/sub-categories?page=1&limit=100';
+    const apiURL =
+      'http://192.168.1.34:8080/wheelsale-app-ws/sub-categories?page=1&limit=100';
     // console.log(apiURL);
     await fetch(apiURL, {
       method: 'GET',
@@ -41,36 +44,56 @@ const Search = () => {
 
   const ItemView = ({item}) => {
     return (
-      <View style={styles.container}>
-        <TouchableOpacity key={item.subCategoryId}>
-          <View style={styles.cardItem}>
-            <View style={styles.card}>
-              <Image
-                source={{
-                  uri:
-                    item.images[0].image === null
-                      ? DefImg
-                      : item.images[0].image,
-                }}
-                style={styles.cardImg}
-              />
-              <Image
-                source={{
-                  uri: 'http://wheelsale.in/wheel/Asset1/images/favicon.png',
-                }}
-                style={styles.iconLogo}
-              />
-              <View style={{margin: 5}}>
-                <Text style={styles.vehName} numberOfLines={2}>
-                  {item.company.toUpperCase()} {item.categoryName.toUpperCase()}{' '}
-                  - {item.modelYear} ({item.subCategoryName.toUpperCase()})
-                </Text>
-                <Text style={styles.vehPrice}>
-                  <FontAwesome name="rupee" size={16} color="#3d3d72" />
-                  {''} {item.sellingPrice}/-
-                </Text>
+      <>
+        {loading ? (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignSelf: 'center',
+              marginTop: 30,
+            }}>
+            <ActivityIndicator
+              size="large"
+              color="#00b8dc"
+              visible={loading}
+              textContent={'Loading...'}
+              textStyle={styles.spinnerTextStyle}
+            />
+          </View>
+        ) : (
+          <View style={styles.container}>
+            <TouchableOpacity key={item.subCategoryId}>
+              <View style={styles.cardItem}>
+                <View style={styles.card}>
+                  <Image
+                    source={{
+                      uri:
+                        item.images[0].image === null
+                          ? DefImg
+                          : item.images[0].image,
+                    }}
+                    style={styles.cardImg}
+                  />
+                  <Image
+                    source={{
+                      uri: 'http://wheelsale.in/wheel/Asset1/images/favicon.png',
+                    }}
+                    style={styles.iconLogo}
+                  />
+                  <View style={{margin: 5}}>
+                    <Text style={styles.vehName} numberOfLines={2}>
+                      {item.company.toUpperCase()}{' '}
+                      {item.categoryName.toUpperCase()} -{' '}
+                      {item.modelYear.toString()} (
+                      {item.subCategoryName.toUpperCase()})
+                    </Text>
+                    <Text style={styles.vehPrice}>
+                      <FontAwesome name="rupee" size={16} color="#3d3d72" />
+                      {''} {item.sellingPrice}/-
+                    </Text>
 
-                {/* <Text style={styles.shopName} numberOfLines={1}>
+                    {/* <Text style={styles.shopName} numberOfLines={1}>
                     <FontAwesome
                     name="map-marker"
                     size={16}
@@ -78,11 +101,13 @@ const Search = () => {
                     />{' '}
                     Taj Auto Delars Sadar
                 </Text> */}
+                  </View>
+                </View>
               </View>
-            </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-      </View>
+        )}
+      </>
     );
   };
 
@@ -115,66 +140,86 @@ const Search = () => {
 
   useEffect(() => {
     fetchPosts();
-
+    setLoading(false);
     return () => {};
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <View style={{backgroundColor: '#00b8dc'}}>
-        <SearchBar
-          inputContainerStyle={{backgroundColor: '#fff'}}
-          placeholder="Searching..."
-          placeholderTextColor="gray"
-          searchIcon={{size: 24, color: 'black'}}
-          clearIcon={{color: 'gray'}}
-          style={{color: 'black'}}
-          containerStyle={{
-            backgroundColor: 'green',
+    <>
+      {loading ? (
+        <View
+          style={{
+            flex: 1,
             justifyContent: 'center',
-            padding: 0,
-            margin: 15,
-            height: 40,
-          }}
-          value={search}
-          onChangeText={text => searchFilter(text)}
-          onClear={setSearch}
-        />
-      </View>
-
-      <View style={{paddingBottom: 65, backgroundColor: 'white'}}>
-        {/* {search ? <Text>No results found for '{search}'</Text> : null} */}
-        {search ? (
-          <FlatList
-            data={FilterData}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={ItemView}
-            contentContainerStyle={{
-              justifyContent: 'space-between',
-              margin: 5,
-            }}
-            numColumns={2}
+            alignSelf: 'center',
+            marginTop: 30,
+          }}>
+          <ActivityIndicator
+            size="large"
+            color="#00b8dc"
+            visible={loading}
+            textContent={'Loading...'}
+            textStyle={styles.spinnerTextStyle}
           />
-        ) : (
-          <View
-            style={{
-              backgroundColor: 'white',
-            }}>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 14,
-                alignSelf: 'center',
-                marginTop: 20,
-                color: 'black',
-              }}>
-              A Delars can find any vehical by using search with Vehical type,
-              Vehical name, Model year.
-            </Text>
+        </View>
+      ) : (
+        <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+          <View style={{backgroundColor: '#00b8dc'}}>
+            <SearchBar
+              inputContainerStyle={{backgroundColor: '#fff'}}
+              placeholder="Searching..."
+              placeholderTextColor="gray"
+              searchIcon={{size: 24, color: 'black'}}
+              clearIcon={{color: 'gray'}}
+              style={{color: 'black'}}
+              containerStyle={{
+                backgroundColor: 'green',
+                justifyContent: 'center',
+                padding: 0,
+                margin: 15,
+                height: 40,
+              }}
+              value={search}
+              onChangeText={text => searchFilter(text)}
+              onClear={setSearch}
+            />
           </View>
-        )}
-      </View>
-    </SafeAreaView>
+
+          <View style={{paddingBottom: 65, backgroundColor: 'white'}}>
+            {/* {search ? <Text>No results found for '{search}'</Text> : null} */}
+            {search ? (
+              <FlatList
+                data={FilterData}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={ItemView}
+                contentContainerStyle={{
+                  justifyContent: 'space-between',
+                  margin: 5,
+                }}
+                numColumns={2}
+              />
+            ) : (
+              <View
+                style={{
+                  backgroundColor: 'white',
+                }}>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontSize: 14,
+                    alignSelf: 'center',
+                    marginTop: 20,
+                    color: 'black',
+                  }}>
+                  A Delars can find any vehical by using search with Vehical
+                  type, Vehical name, Model year.
+                </Text>
+              </View>
+            )}
+          </View>
+        </SafeAreaView>
+      )}
+    </>
   );
 };
 
