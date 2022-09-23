@@ -16,6 +16,7 @@ import Support from '../dealers/Support';
 import Dashboard from '../dealers/Dashboard';
 import SideMenus from '../dealers/SideMenus';
 import SoldVehicles from '../dealers/SoldVehicles';
+import ImageUpload from '../dealers/ImageUpload';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,7 +24,13 @@ const Tab = createBottomTabNavigator();
 const Routes = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Tabs">
+      <Stack.Navigator initialRouteName="Upload Image">
+        <Stack.Screen
+          name="Upload Image"
+          component={ImageUpload}
+          options={{headerShown: true}}
+        />
+
         <Stack.Screen
           name="SideMenus"
           component={SideMenus}
