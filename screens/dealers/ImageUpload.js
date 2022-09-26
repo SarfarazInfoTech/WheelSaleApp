@@ -3,6 +3,7 @@ import {View, Image, Button, Platform, PermissionsAndroid} from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {encode} from 'base-64';
 import DocumentPicker from 'react-native-document-picker';
+import { IKImage, IKContext, IKUpload } from 'imagekitio-react'
 
 const SERVER_URL = 'https://upload.imagekit.io';
 
@@ -21,7 +22,6 @@ const ImageUpload = () => {
       file: photo.assets[0].uri,
       fileName: photo.assets[0].fileName,
       fileType: photo.assets[0].type,
-      // uri: Platform.OS === 'ios' ? photo.replace('file://', '') : photo,
     });
 
     Object.keys(body).forEach(key => {
@@ -42,7 +42,7 @@ const ImageUpload = () => {
   };
 
   const handleChoosePhoto = () => {
-    launchImageLibrary({noData: true}, (response) => {
+    launchImageLibrary({noData: true, mediaType: 'photo', includeBase64: true}, (response) => {
       // console.log('Handle Image ', response.assets);
       if (response) {
         setPhoto(response);
@@ -51,7 +51,7 @@ const ImageUpload = () => {
   };
 
   const handleUploadPhoto = async () => {
-    await fetch(`${SERVER_URL}/api/v1/files/upload`, {
+    await fetch(`https://upload.imagekit.io/api/v1/files/upload`, {
       method: 'POST',
       
       body: createFormData(photo, {
@@ -135,8 +135,38 @@ const ImageUpload = () => {
     // onSaveImage();
   }, []);
 
+
+ const OnError = () => {
+   
+ }
+
+ const OnSuccess = () => {
+
+ }
+
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+
+<IKContext publicKey="public_+Oqkm59GrogcAEECOWsGR6od3yc=" authenticationEndpoint="http://localhost:8080/auth">
+  {/* // Simple file upload and response handling */}
+  {/* <IKUpload
+    onError={onError}
+    onSuccess={onSuccess}
+  /> */}
+
+  {/* // Passing different upload API options */}
+  <IKUpload
+    fileName="file-name.jpg"
+    tags={["sample-tag1", "sample-tag2"]}
+    customCoordinates={"10,10,10,10"}
+    isPrivateFile={false}
+    useUniqueFileName={true}
+    responseFields={["tags"]}
+    folder={"/sample-folder"}
+    OnError={OnError} 
+    OnSuccess={OnSuccess}
+  />
+</IKContext>
       {photo ? (
         <>
           <Image source={{uri: photo.assets[0].uri}} style={{width: 300, height: 300}} />

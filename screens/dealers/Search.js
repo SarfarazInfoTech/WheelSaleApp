@@ -19,10 +19,28 @@ const Search = () => {
   const [search, setSearch] = useState('');
   const [FilterData, setFilterData] = useState([]);
   const [MasterData, setMasterData] = useState([]);
+  const [Page, setPage] = useState(1);
+  
+  const handleLoadMore = () => {
+    setPage(Page + 1);
+    fetchPosts();
+    setLoading(true);
+  };
+
+  const renderFooter = () => {
+    return loading ? (
+      <View style={{margin: 10, alignItems: 'center'}}>
+        <Text>Loading...</Text>
+        <ActivityIndicator size={'small'} />
+      </View>
+    ) : null;
+  };
 
   const fetchPosts = async () => {
     const apiURL =
-      'http://192.168.1.34:8080/wheelsale-app-ws/sub-categories?page=1&limit=100';
+      // 'http://192.168.1.34:8080/wheelsale-app-ws/sub-categories?page=1&limit=100';
+      'http://192.168.1.16:8080/wheelsale-app-ws/sub-categories?limit=100&page=' +
+      Page;
     // console.log(apiURL);
     await fetch(apiURL, {
       method: 'GET',
@@ -36,6 +54,8 @@ const Search = () => {
         // console.log(responseJson);
         setFilterData(responseJson.subCategories);
         setMasterData(responseJson.subCategories);
+        setLoading(false);
+
       })
       .catch(error => {
         console.log(error);
@@ -83,10 +103,10 @@ const Search = () => {
                   />
                   <View style={{margin: 5}}>
                     <Text style={styles.vehName} numberOfLines={2}>
-                      {item.company.toUpperCase()}{' '}
-                      {item.categoryName.toUpperCase()} -{' '}
-                      {item.modelYear.toString()} (
-                      {item.subCategoryName.toUpperCase()})
+                      {item.company}{' '}
+                      {item.categoryName} -{' '}
+                      {item.modelYear} (
+                      {item.subCategoryName})
                     </Text>
                     <Text style={styles.vehPrice}>
                       <FontAwesome name="rupee" size={16} color="#3d3d72" />
@@ -100,7 +120,7 @@ const Search = () => {
                     color="black"
                     />{' '}
                     Taj Auto Delars Sadar
-                </Text> */}
+                    </Text> */}
                   </View>
                 </View>
               </View>
@@ -139,11 +159,14 @@ const Search = () => {
   };
 
   useEffect(() => {
+    console.log('Current Page : ', Page);
     fetchPosts();
+    // handleLoadMore()
     setLoading(false);
-    return () => {};
-  }, []);
-
+    return () => {
+    };
+  }, [Page]);
+  
   return (
     <>
       {loading ? (
@@ -192,6 +215,9 @@ const Search = () => {
                 data={FilterData}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={ItemView}
+                onEndReached={handleLoadMore}
+                onEndReachedThreshold={0}
+                ListFooterComponent={renderFooter}
                 contentContainerStyle={{
                   justifyContent: 'space-between',
                   margin: 5,

@@ -1,27 +1,27 @@
-const VehiclesList = 'http://192.168.1.34:8080/wheelsale-app-ws/categories';
+const VehiclesList = 'http://192.168.1.16:8080/wheelsale-app-ws/categories';
 
 export {VehiclesList};
 
-const AddMyVehical = 'http://192.168.1.34:8080/wheelsale-app-ws/sub-categories/9czJMjMfRNHaB04G07moLqkGV5reTc';
+const AddMyVehical = 'http://192.168.1.16:8080/wheelsale-app-ws/sub-categories/9czJMjMfRNHaB04G07moLqkGV5reTc';
 
 export {AddMyVehical};
 
-const ShownMyVehical = 'http://192.168.1.34:8080/wheelsale-app-ws/sub-categories?page=1&limit=100&dealerId=9czJMjMfRNHaB04G07moLqkGV5reTc';
+const ShownMyVehical = 'http://192.168.1.16:8080/wheelsale-app-ws/sub-categories?page=1&limit=100&dealerId=9czJMjMfRNHaB04G07moLqkGV5reTc';
 
 export {ShownMyVehical};
 
-const MarketVehical = 'http://192.168.1.34:8080/wheelsale-app-ws/sub-categories?page=1&limit=100';
+const MarketVehical = 'http://192.168.1.16:8080/wheelsale-app-ws/sub-categories?page=1&limit=100';
 
 export {MarketVehical};
 
-const SoldMyVehical = 'http://192.168.1.34:8080/wheelsale-app-ws/sub-categories?page=1&limit=100&dealerId=9czJMjMfRNHaB04G07moLqkGV5reTc&visibility=false'
+const SoldMyVehical = 'http://192.168.1.16:8080/wheelsale-app-ws/sub-categories?page=1&limit=100&dealerId=9czJMjMfRNHaB04G07moLqkGV5reTc&visibility=false'
 
 export {SoldMyVehical};
 
 
 // import axios from 'axios'
 // const instance = axios.create({
-//     baseURL: 'http://192.168.1.34:8080/wheelsale-app-ws',
+//     baseURL: 'http://192.168.1.16:8080/wheelsale-app-ws',
 //     headers: {
 //         'content-type':'application/json',
 //     },

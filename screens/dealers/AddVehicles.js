@@ -83,7 +83,7 @@ const AddVehicles = ({navigation}) => {
         images: [
           {
             image:
-              'https://www.bikes4sale.in/photos-2/188/188986/hero-cd-100-1540029277.jpg',
+              null,
           },
         ],
         modelYear: modelYear,
