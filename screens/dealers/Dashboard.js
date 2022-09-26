@@ -202,7 +202,7 @@ const Dashboard = ({navigation, route}) => {
                 justifyContent: 'space-evenly',
               }}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Add Vehicles')}
+                onPress={() => navigation.navigate('Add Vehicle')}
                 style={styles.shadowCard}>
                 <View style={styles.card}>
                   <View
@@ -234,7 +234,7 @@ const Dashboard = ({navigation, route}) => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Show Vehicles')}
+                onPress={() => navigation.navigate('My Vehicle')}
                 style={styles.shadowCard}>
                 <View style={styles.card}>
                   <View
@@ -265,7 +265,7 @@ const Dashboard = ({navigation, route}) => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Market Vehicles')}
+                onPress={() => navigation.navigate('Market Vehicle')}
                 style={styles.shadowCard}>
                 <View style={styles.card}>
                   <View
@@ -297,7 +297,7 @@ const Dashboard = ({navigation, route}) => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Sold Vehicles')}
+                onPress={() => navigation.navigate('Sold Vehicle')}
                 style={styles.shadowCard}>
                 <View style={styles.card}>
                   <View

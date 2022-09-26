@@ -28,7 +28,7 @@ const Profile = ({navigation}) => {
       id: '1',
       icon: 'person-outline',
       name: 'Profile',
-      routes: 'Profile',
+      routes: 'Account',
       size: 35,
     },
     {

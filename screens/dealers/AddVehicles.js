@@ -69,7 +69,7 @@ const AddVehicles = ({navigation}) => {
     Vehicles();
   }, []);
 
-  const AddVehicle = async () => {
+  const AddVehicle = async ({navigation}) => {
     // console.log(AddMyVehical);
     await fetch(AddMyVehical, {
       method: 'POST',
@@ -82,8 +82,7 @@ const AddVehicles = ({navigation}) => {
         color: Color,
         images: [
           {
-            image:
-              null,
+            image: null,
           },
         ],
         modelYear: modelYear,
@@ -103,7 +102,7 @@ const AddVehicles = ({navigation}) => {
               onPress: () => console.log('Cancel Pressed'),
               style: 'cancel',
             },
-            {text: 'Show', onPress: () => navigation.navigate('Show Vehicles')},
+            {text: 'Show', onPress: () => navigation.navigate('Show Vehicle')},
           ]);
           console.log(resData);
           setVehicleNumber('');
@@ -123,28 +122,34 @@ const AddVehicles = ({navigation}) => {
   };
 
   const Vehicles = async () => {
-    await fetch(`${VehiclesList}`, {
-      method: 'GET',
-    })
-      .then(res => res.json())
-      .then(resData => {
-        if (resData.status === 'S') {
-          // alert(resData.message);
-          let newArray = resData.categories.map(item => {
-            return {
-              key: item.categoryId,
-              value: item.company + ' ' + item.categoryName,
-            };
-          });
-          setVehiInfo(newArray);
-          // console.log(newArray)
-          setLoading(false);
-        } else {
-          alert(resData.message);
-          setMessage(resData.message);
-          setError(resData.status);
-        }
-      });
+    try {
+      await fetch(`${VehiclesList}`, {
+        method: 'GET',
+      })
+        .then(res => res.json())
+        .then(resData => {
+          if (resData.status === 'S') {
+            // alert(resData.message);
+            let newArray = resData.categories.map(item => {
+              return {
+                key: item.categoryId,
+                value: item.company + ' ' + item.categoryName,
+              };
+            });
+            setVehiInfo(newArray);
+            // console.log(newArray)
+            setLoading(false);
+          } else {
+            alert(resData.message);
+            setMessage(resData.message);
+            setError(resData.status);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+      alert(error);
+      navigation.navigate('Dashboard ');
+    }
   };
   return (
     <>

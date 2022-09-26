@@ -14,12 +14,14 @@ import ShowVehicles from '../dealers/ShowVehicles';
 import MarketVehicles from '../dealers/MarketVehicles';
 import Support from '../dealers/Support';
 import Dashboard from '../dealers/Dashboard';
-import SideMenus from '../dealers/SideMenus';
 import SoldVehicles from '../dealers/SoldVehicles';
 import ImageUpload from '../dealers/ImageUpload';
 import ImgKit from '../dealers/ImgKit';
 import ImageUp from '../dealers/Image';
 import PageLoad from '../dealers/PageLoad';
+import Drawers from './Drawers';
+import { TouchableOpacity } from 'react-native';
+import { View, Text, Image } from 'react-native'
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,7 +29,7 @@ const Tab = createBottomTabNavigator();
 const Routes = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Tabs">
+      <Stack.Navigator initialRouteName="Drawers">
         <Stack.Screen
           name="Upload Image"
           component={PageLoad}
@@ -35,94 +37,106 @@ const Routes = () => {
         />
 
         <Stack.Screen
-          name="SideMenus"
-          component={SideMenus}
+          name="Drawers"
+          component={Drawers}
           options={{headerShown: false}}
         />
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Tabs"
           component={Tabs}
           options={{headerShown: false}}
-        />
+        /> */}
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Add Vehicles"
           component={AddVehicles}
-          options={{headerShown: true,
+          options={{
+            headerShown: true,
             headerTintColor: '#fff',
             headerTitleStyle: {
               color: '#fff',
             },
             headerStyle: {
               backgroundColor: '#00b8dc',
-            },}}
+            },
+          }}
         />
 
         <Stack.Screen
           name="Show Vehicles"
           component={ShowVehicles}
-          options={{headerShown: true,
+          options={{
+            headerShown: true,
             headerTintColor: '#fff',
             headerTitleStyle: {
               color: '#fff',
             },
             headerStyle: {
               backgroundColor: '#00b8dc',
-            },}}
+            },
+          }}
         />
 
         <Stack.Screen
           name="Market Vehicles"
           component={MarketVehicles}
-          options={{headerShown: true,
+          options={{
+            headerShown: true,
             headerTintColor: '#fff',
             headerTitleStyle: {
               color: '#fff',
             },
             headerStyle: {
               backgroundColor: '#00b8dc',
-            },}}
+            },
+          }}
         />
 
         <Stack.Screen
           name="Sold Vehicles"
           component={SoldVehicles}
-          options={{headerShown: true,
+          options={{
+            headerShown: true,
             headerTintColor: '#fff',
             headerTitleStyle: {
               color: '#fff',
             },
             headerStyle: {
               backgroundColor: '#00b8dc',
-            },}}
+            },
+          }}
         />
 
         <Stack.Screen
           name="Support"
           component={Support}
-          options={{headerShown: true,
+          options={{
+            headerShown: true,
             headerTintColor: '#fff',
             headerTitleStyle: {
               color: '#fff',
             },
             headerStyle: {
               backgroundColor: '#00b8dc',
-            },}}
+            },
+          }}
         />
 
         <Stack.Screen
           name="Subscription"
           component={Subscription}
-          options={{headerShown: true,
+          options={{
+            headerShown: true,
             headerTintColor: '#fff',
             headerTitleStyle: {
               color: '#fff',
             },
             headerStyle: {
               backgroundColor: '#00b8dc',
-            },}}
-        />
+            },
+          }}
+        /> */}
 
         <Stack.Screen
           name="SplashScreen"
@@ -168,11 +182,11 @@ const Routes = () => {
           options={{
             headerShown: true,
             headerRight: () => (
-              <TouchableOpacity onPress={() => Auth().signOut()}>
+              <TouchableOpacity onPress={() => console.log("first")}>
                 <Image
                   style={{backgroundColor: 'white', height: 35, width: 35}}
                   source={{
-                    uri: logOutIcon,
+                    uri: "http://wheelsale.in/wheel/Asset1/images/favicon.png",
                   }}
                 />
               </TouchableOpacity>

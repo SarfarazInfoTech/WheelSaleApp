@@ -50,7 +50,7 @@ const ShowVehicles = ({navigation}) => {
     } catch (err) {
       alert(err);
       console.log(err);
-      navigation.navigate('Tabs');
+      navigation.navigate('Dashboard ');
     } finally {
       setLoading(false);
     }
