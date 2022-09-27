@@ -69,7 +69,7 @@ const AddVehicles = ({navigation}) => {
     Vehicles();
   }, []);
 
-  const AddVehicle = async ({navigation}) => {
+  const AddVehicle = async () => {
     // console.log(AddMyVehical);
     await fetch(AddMyVehical, {
       method: 'POST',
@@ -112,11 +112,11 @@ const AddVehicles = ({navigation}) => {
           setChecked('');
         } else if (resData.status === 'F') {
           alert(resData.message);
-          setMessage(resData.message);
-          setError(resData.status);
+          // setMessage(resData.message);
+          // setError(resData.status);
         } else {
-          setMessage(resData.message);
-          setError(resData.status);
+          // setMessage(resData.message);
+          // setError(resData.status);
         }
       });
   };

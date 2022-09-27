@@ -20,8 +20,7 @@ import ImgKit from '../dealers/ImgKit';
 import ImageUp from '../dealers/Image';
 import PageLoad from '../dealers/PageLoad';
 import Drawers from './Drawers';
-import { TouchableOpacity } from 'react-native';
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import VehiclesDetails from '../dealers/VehiclesDetails';
 
 const Stack = createNativeStackNavigator();
