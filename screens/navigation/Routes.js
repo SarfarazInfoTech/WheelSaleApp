@@ -29,7 +29,7 @@ const Tab = createBottomTabNavigator();
 const Routes = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Drawers">
+      <Stack.Navigator initialRouteName="MainScreen">
         <Stack.Screen
           name="Upload Image"
           component={PageLoad}

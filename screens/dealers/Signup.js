@@ -11,6 +11,7 @@ import {
   ScrollView,
 } from 'react-native';
 import Api from '../Api/Api';
+import { showError, showSuccess } from '../components/FlashMessage';
 
 const Signup = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -34,21 +35,21 @@ const Signup = ({navigation}) => {
       !shopAddress &&
       !shopName
     ) {
-      alert('All fields are requred!');
+      showError('All fields are requred!');
     } else if (!email) {
-      alert('Email address requred!');
+      showError('Email address requred!');
     } else if (!fullName) {
-      alert('Full Name requred!');
+      showError('Full Name requred!');
     } else if (!password) {
-      alert('Password requred!');
+      showError('Password requred!');
     } else if (!phone) {
-      alert('Phone number requred!');
+      showError('Phone number requred!');
     } else if (!repeatPassword) {
-      alert('Password requred!');
+      showError('Password requred!');
     } else if (!shopAddress) {
-      alert('Shop Address requred!');
+      showError('Shop Address requred!');
     } else if (!shopName) {
-      alert('Shop Name requred!');
+      showError('Shop Name requred!');
     } else {
       await fetch(`${Api.api}register`, {
         method: 'POST',
@@ -69,11 +70,11 @@ const Signup = ({navigation}) => {
         .then(res => res.json())
         .then(resData => {
           if (resData.status === 'S') {
-            alert(resData.message);
+            showSuccess(resData.message);
             navigation.navigate('Login');
             console.log(resData);
           } else if (resData.status === 'F') {
-            alert(resData.message);
+            showError(resData.message);
             setMessage(resData.message);
             setError(resData.status);
           } else {

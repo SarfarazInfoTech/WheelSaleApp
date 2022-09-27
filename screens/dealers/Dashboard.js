@@ -36,7 +36,7 @@ const Dashboard = ({navigation, route}) => {
 
   return (
     <>
-      <SafeAreaView style={{}}>
+      <SafeAreaView style={{backgroundColor: '#f7f7f7', flex: 1}}>
         {Data.status ? (
           <View
             style={{

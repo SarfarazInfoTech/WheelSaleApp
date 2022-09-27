@@ -28,6 +28,8 @@ const MainScreen = ({ navigation }) => {
                 fontSize: 20,
                 textAlign: 'center',
                 margin: 10,
+                fontWeight: '500',
+                textTransform: 'uppercase'
               }}>
               Login
             </Text>
@@ -49,11 +51,12 @@ const MainScreen = ({ navigation }) => {
               style={{
                 color: 'white',
                 fontSize: 20,
-
+                textTransform: 'uppercase',
+                fontWeight: '500',
                 textAlign: 'center',
                 margin: 10,
               }}>
-              Create Account
+              Create  Account
             </Text>
           </View>
 

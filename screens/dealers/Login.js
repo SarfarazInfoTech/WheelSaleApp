@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import Api from '../Api/Api';
+import { showError, showSuccess } from '../components/FlashMessage';
 
 const Login = ({navigation}) => {
   const [phone, setPhone] = useState('');
@@ -19,8 +20,8 @@ const Login = ({navigation}) => {
 
   const handleLogin = async () => {
     if (!phone && !password) {
-      alert('Username & Password are requred!');
-      console.log(`${Api.api}login`);
+      // console.log(`${Api.api}login`);
+      showError('Username & Password are requred!')
     } else {
       await fetch(`${Api.api}login`, {
         method: 'POST',
@@ -36,16 +37,16 @@ const Login = ({navigation}) => {
         .then(res => res.json())
         .then(resData => {
           if (resData.status === 'S') {
-            alert(resData.message);
+            showSuccess(resData.message)
             navigation.navigate(
-              'Tabs',
-              {dealers: resData.dealers},
+              'Drawers',
+              // {dealers: resData.dealers},
             );
             console.log(resData.dealers);
             // alert(resData.dealers);
             // setMessage(resData.dealers)
           } else {
-            alert(resData.message);
+            showError(resData.message);
             setMessage(resData.message);
             setError(resData.status);
             setPhone('');
