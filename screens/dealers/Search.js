@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {DefImg} from '../data/data.json';
+import { SearchVehical } from '../services/UrlApi.js';
 
 const Search = () => {
   const [loading, setLoading] = useState(true);
@@ -37,11 +38,8 @@ const Search = () => {
   };
 
   const fetchPosts = async () => {
-    const apiURL =
-      // 'http://192.168.1.34:8080/wheelsale-app-ws/sub-categories?page=1&limit=100';
-      'http://192.168.1.16:8080/wheelsale-app-ws/sub-categories?limit=100&page=' +
-      Page;
-    // console.log(apiURL);
+    const apiURL = `${SearchVehical}` + Page;
+    console.log(apiURL);
     await fetch(apiURL, {
       method: 'GET',
       headers: {

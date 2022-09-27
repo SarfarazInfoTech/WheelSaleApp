@@ -22,6 +22,7 @@ import PageLoad from '../dealers/PageLoad';
 import Drawers from './Drawers';
 import { TouchableOpacity } from 'react-native';
 import { View, Text, Image } from 'react-native'
+import VehiclesDetails from '../dealers/VehiclesDetails';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -137,6 +138,12 @@ const Routes = () => {
             },
           }}
         /> */}
+
+        <Stack.Screen
+          name="Vehicles Details"
+          component={VehiclesDetails}
+          options={{headerShown: false}}
+        />
 
         <Stack.Screen
           name="SplashScreen"
